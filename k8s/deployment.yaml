@@ -44,7 +44,7 @@ spec:
               mountPath: /vault/secrets
       containers:
         - name: backend-api
-          image: REGION-docker.pkg.dev/dev-test-498808/backend-repo/backend-api:latest
+          image: us-central1-docker.pkg.dev/dev-test-498808/backend-repo/backend-api:latest
           ports:
             - containerPort: 3000
           env:
