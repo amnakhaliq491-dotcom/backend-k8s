@@ -78,9 +78,12 @@ jobs:
       #    Substitutes the actual image URI into the manifest
       - name: Deploy to GKE
         run: |
-          IMAGE_URI="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/${{ env.IMAGE }}:${{ github.sha }}"
-          sed "s|REGION-docker.pkg.dev/YOUR_PROJECT_ID/backend-repo/backend-api:latest|${IMAGE_URI}|g" \
-            k8s/deployment.yaml | kubectl apply -f -
+          IMAGE_URI="us-central1-docker.pkg.dev/dev-test-498808/backend-repo/backend-api:${{ github.sha }}"
+          
+          sed "s|IMAGE_PLACEHOLDER|${IMAGE_URI}|g" k8s/deployment.yaml | kubectl apply -f -
+          
+          # Verify substitution worked
+          echo "Deploying image: ${IMAGE_URI}"
 
       # 10. Apply Ingress (TLS + routing)
       - name: Apply Ingress
