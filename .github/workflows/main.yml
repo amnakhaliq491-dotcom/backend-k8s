@@ -40,13 +40,22 @@ jobs:
         run: |
           gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
 
-      # 5. Build & push Docker image (tagged with git SHA for traceability)
-      - name: Build and Push Docker Image
-        run: |
-          IMAGE_URI="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/${{ env.IMAGE }}"
-          docker build -t "${IMAGE_URI}:${{ github.sha }}" -t "${IMAGE_URI}:latest" .
-          docker push "${IMAGE_URI}:${{ github.sha }}"
-          docker push "${IMAGE_URI}:latest"
+      # 5. Build & Push Docker Image
+     - name: Build and Push Docker Image
+  run: |
+    IMAGE_URI="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/${{ env.IMAGE }}"
+
+    docker build \
+      -f backend/Dockerfile \
+      -t "${IMAGE_URI}:${{ github.sha }}" \
+      -t "${IMAGE_URI}:latest" \
+      backend
+
+    docker push "${IMAGE_URI}:${{ github.sha }}"
+    docker push "${IMAGE_URI}:latest"
+   
+
+     
 
       # 6. Get GKE credentials
       - name: Get GKE Credentials
