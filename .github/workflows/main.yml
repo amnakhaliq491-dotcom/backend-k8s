@@ -41,18 +41,18 @@ jobs:
           gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
 
       # 5. Build & Push Docker Image
-     - name: Build and Push Docker Image
-  run: |
-    IMAGE_URI="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/${{ env.IMAGE }}"
+      - name: Build and Push Docker Image
+        run: |
+          IMAGE_URI="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/${{ env.IMAGE }}"
 
-    docker build \
-      -f backend/Dockerfile \
-      -t "${IMAGE_URI}:${{ github.sha }}" \
-      -t "${IMAGE_URI}:latest" \
-      backend
+          docker build \
+          -f backend/Dockerfile \
+          -t "${IMAGE_URI}:${{ github.sha }}" \
+          -t "${IMAGE_URI}:latest" \
+          backend
 
-    docker push "${IMAGE_URI}:${{ github.sha }}"
-    docker push "${IMAGE_URI}:latest"
+           docker push "${IMAGE_URI}:${{ github.sha }}"
+           docker push "${IMAGE_URI}:latest"
    
 
      
