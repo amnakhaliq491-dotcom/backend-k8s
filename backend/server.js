@@ -53,10 +53,7 @@ app.post("/api/products/upload", upload.single("image"), async (req, res) => {
 app.get("/", (req, res) => {
   res.json({ 
     message: "Backend API is running",
-    endpoints: {
-      allProducts: "/api/allproducts",
-      uploadProduct: "/api/products/upload"
-    }
+   
   });
 });
 
