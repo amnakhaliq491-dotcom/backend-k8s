@@ -8,19 +8,16 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - 35.255.167.255.nip.io
+      secretName: backend-tls-cert
   rules:
     - host: 35.255.167.255.nip.io
       http:
         paths:
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: backend-api-svc
-                port:
-                  number: 80
           - path: /
-            pathType: Exact
+            pathType: Prefix
             backend:
               service:
                 name: backend-api-svc
