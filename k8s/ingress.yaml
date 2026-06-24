@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: backend-ingress
+  namespace: backend-prod
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - 35.255.167.255.nip.io
+      secretName: backend-tls-cert
+  rules:
+    - host: 35.255.167.255.nip.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-api-svc
+                port:
+                  number: 80
