@@ -4,25 +4,12 @@ metadata:
   name: backend-ingress
   namespace: backend-prod
   annotations:
-<<<<<<< HEAD
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
-=======
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
->>>>>>> 40501b6 (Adding manifest files)
 spec:
   ingressClassName: traefik
   tls:
     - hosts:
-<<<<<<< HEAD
-        - 35.255.167.255.nip.io
-      secretName: backend-tls-cert
-  rules:
-    - host: 35.255.167.255.nip.io
-      http:
-        paths:
-=======
         - testdomain.invoicemate.tech
       secretName: backend-tls-cert
   rules:
@@ -36,7 +23,6 @@ spec:
                 name: backend-api-svc
                 port:
                   number: 80
->>>>>>> 40501b6 (Adding manifest files)
           - path: /
             pathType: Prefix
             backend:
