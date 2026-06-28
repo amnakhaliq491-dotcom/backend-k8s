@@ -1,4 +1,3 @@
-# ── Kubernetes Service Account (bound to GSA via Workload Identity) ────────────
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -8,7 +7,6 @@ metadata:
     iam.gke.io/gcp-service-account: "backend-gsa@dev-test-498808.iam.gserviceaccount.com"
 
 ---
-# ── Deployment ──────────────────────────────────────────────────────────────────
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,25 +24,14 @@ spec:
       labels:
         app: backend-api
     spec:
-      serviceAccountName: backend-ksa   # uses Workload Identity → GSA
-      initContainers:
-        # Fetch secrets from Secret Manager and write to /vault/secrets/
-        - name: fetch-secrets
-          image: google/cloud-sdk:slim
-          command:
-            - /bin/bash
-            - -c
-            - |
-              gcloud secrets versions access latest \
-                --secret=MONGO_URI \
-                --project=dev-test-498808\
-                > /vault/secrets/MONGO_URI
-          volumeMounts:
-            - name: secrets-vol
-              mountPath: /vault/secrets
+      serviceAccountName: backend-ksa
       containers:
         - name: backend-api
+<<<<<<< HEAD
           image: us-central1-docker.pkg.dev/dev-test-498808/backend-repo/backend-api:latest
+=======
+          image: IMAGE_PLACEHOLDER
+>>>>>>> 40501b6 (Adding manifest files)
           ports:
             - containerPort: 3000
           env:
@@ -72,12 +59,8 @@ spec:
               port: 3000
             initialDelaySeconds: 20
             periodSeconds: 15
-      volumes:
-        - name: secrets-vol
-          emptyDir: {}
 
 ---
-# ── Service ─────────────────────────────────────────────────────────────────────
 apiVersion: v1
 kind: Service
 metadata:
