@@ -27,11 +27,7 @@ spec:
       serviceAccountName: backend-ksa
       containers:
         - name: backend-api
-<<<<<<< HEAD
-          image: us-central1-docker.pkg.dev/dev-test-498808/backend-repo/backend-api:latest
-=======
           image: IMAGE_PLACEHOLDER
->>>>>>> 40501b6 (Adding manifest files)
           ports:
             - containerPort: 3000
           env:
