@@ -11,8 +11,4 @@ spec:
     solvers:
       - http01:
           ingress:
-<<<<<<< HEAD
-            ingressClassName: nginx
-=======
             ingressClassName: traefik
->>>>>>> 40501b6 (Adding manifest files)
