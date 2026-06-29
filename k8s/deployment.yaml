@@ -30,12 +30,6 @@ spec:
           image: IMAGE_PLACEHOLDER
           ports:
             - containerPort: 3000
-          env:
-            - name: MONGO_URI
-              valueFrom:
-                secretKeyRef:
-                  name: app-secrets
-                  key: MONGO_URI
           resources:
             requests:
               cpu: "100m"
@@ -47,13 +41,13 @@ spec:
             httpGet:
               path: /
               port: 3000
-            initialDelaySeconds: 10
+            initialDelaySeconds: 15
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /
               port: 3000
-            initialDelaySeconds: 20
+            initialDelaySeconds: 30
             periodSeconds: 15
 
 ---
