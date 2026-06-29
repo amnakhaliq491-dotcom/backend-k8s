@@ -27,7 +27,7 @@ spec:
       serviceAccountName: backend-ksa
       containers:
         - name: backend-api
-          image: IMAGE_PLACEHOLDER
+          
           ports:
             - containerPort: 3000
           resources:
